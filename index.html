@@ -19,14 +19,12 @@
         TokenElem = document.getElementById("token");
         NotisElem = document.getElementById("notis");
         ErrElem = document.getElementById("err");
-        // Initialize Firebase
-        // TODO: Replace with your project's customized code snippet
         var config = {
-            apiKey: "<API_KEY>",
-            authDomain: "<PROJECT_ID>.firebaseapp.com",
-            databaseURL: "https://<DATABASE_NAME>.firebaseio.com",
-            storageBucket: "<BUCKET>.appspot.com",
-            messagingSenderId: "<SENDER_ID>",
+            apiKey: "AIzaSyCwin0aInuEYBvx_LMeCGGJ67xsCm42p18",
+            authDomain: "fir-99341.firebaseapp.com",
+            databaseURL: "https://fir-99341.firebaseio.com",
+            storageBucket: "fir-99341.appspot.com",
+            messagingSenderId: "672839583901",
         };
         firebase.initializeApp(config);
 
@@ -37,7 +35,6 @@
                 MsgElem.innerHTML = "Notification permission granted." 
                 console.log("Notification permission granted.");
                 
-                // get the token in the form of promise
                 return messaging.getToken()
             })
             .then(function(token) {
@@ -51,7 +48,6 @@
         messaging.onMessage(function(payload) {
             console.log("Message received. ", payload);
             NotisElem.innerHTML = NotisElem.innerHTML + JSON.stringify(payload);
-            //kenng - foreground notifications
             const {title, ...options} = payload.notification;
             navigator.serviceWorker.ready.then(registration => {
                 registration.showNotification(title, options);

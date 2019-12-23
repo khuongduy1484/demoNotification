@@ -1,27 +1,20 @@
 importScripts('https://www.gstatic.com/firebasejs/7.2.1/firebase-app.js');
 importScripts('https://www.gstatic.com/firebasejs/7.2.1/firebase-messaging.js');
-// For an optimal experience using Cloud Messaging, also add the Firebase SDK for Analytics. 
-importScripts('https://www.gstatic.com/firebasejs/7.2.1/firebase-analytics.js');
 
-// Initialize the Firebase app in the service worker by passing in the
-// messagingSenderId.
-firebase.initializeApp({
-  'messagingSenderId': 'YOUR-SENDER-ID'
-});
-
-// Retrieve an instance of Firebase Messaging so that it can handle background
-// messages.
+var config = {
+  apiKey: "AIzaSyCwin0aInuEYBvx_LMeCGGJ67xsCm42p18",
+  authDomain: "fir-99341.firebaseapp.com",
+  databaseURL: "https://fir-99341.firebaseio.com",
+  storageBucket: "fir-99341.appspot.com",
+  messagingSenderId: "672839583901",
+};
+firebase.initializeApp(config);
 const messaging = firebase.messaging();
-
-messaging.setBackgroundMessageHandler(function(payload) {
-  console.log('[firebase-messaging-sw.js] Received background message ', payload);
-  // Customize notification here
-  const notificationTitle = 'Background Message Title';
-  const notificationOptions = {
-    body: 'Background Message body.',
-    icon: '/itwonders-web-logo.png'
+messaging.setBackgroundMessageHandler(function (payload) {
+  const title = 'Hello';
+  const options = {
+    body: payload.data.status
   };
+return self.registration.showNotification(title,options)
+})
 
-  return self.registration.showNotification(notificationTitle,
-      notificationOptions);
-});
